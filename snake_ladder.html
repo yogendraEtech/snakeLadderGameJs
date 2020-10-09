@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <style> 
+                #dice {
+                width: 550px;
+                height: 70px;
+                border: 2px solid #c3c3c3;
+                display: flex;
+                justify-content: center;
+                margin-left: auto;
+		        margin-right: auto;
+                }
+                #dice div{
+                width: 250px;
+                height: 65px;   
+                }
+        
+                .containerr{
+                    display: block;
+                    border: 3px solid goldenrod;
+                    height: 644px;
+                    width: 580px;
+                    padding: 8px;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+        
+                .grid-container {
+                  display:grid;
+                  grid-template-columns: auto auto auto auto auto auto auto auto auto auto ;
+                  background-image: url('snake_ladder.png');
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                  height: 550px;
+                  width: 550px;                  
+                  margin-left: auto;
+                  margin-right: auto;
+                }
+                       
+                  .dice-position{
+                    background-color: red;
+                    background-image: linear-gradient(to right, red , white); 
+                    opacity: .7;
+                    transition: 2s;
+                    border-radius: 8%;
+                  }
+                  .dice-position-before{
+                    
+                      opacity: 0;
+                      transition: 2s;
+                  }
+                  .dice-position-clash{
+                    background-color: blue;
+                    background-image: linear-gradient(to right, blue , white); 
+                    opacity: .7;
+                    transition: 2s;
+                    border-radius: 8%;
+                  
+                  }
+                  .dice-position-clash2{
+                    background-color: red;
+                    background-image: linear-gradient(to right, red , white); 
+                    opacity: .7;
+                    transition: 2s;
+                    border-radius: 8%;
+                  }
+                  .dice-position2{
+                    background-color: blue;
+                    background-image: linear-gradient(to right, blue , white); 
+                    opacity: .7;
+                    transition: 2s;
+                    border-radius: 8%;
+                  }
+                  .dice-position-before2{
+                    
+                      opacity: 0;
+                      transition: 2s;
+                  }
+               
+
+                .pyro > .before, .pyro > .after {
+                position: absolute;
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                box-shadow: -120px -218.66667px blue, 248px -16.66667px #00ff84, 190px 16.33333px #002bff, -113px -308.66667px #ff009d, -109px -287.66667px #ffb300, -50px -313.66667px #ff006e, 226px -31.66667px #ff4000, 180px -351.66667px #ff00d0, -12px -338.66667px #00f6ff, 220px -388.66667px #99ff00, -69px -27.66667px #ff0400, -111px -339.66667px #6200ff, 155px -237.66667px #00ddff, -152px -380.66667px #00ffd0, -50px -37.66667px #00ffdd, -95px -175.66667px #a6ff00, -88px 10.33333px #0d00ff, 112px -309.66667px #005eff, 69px -415.66667px #ff00a6, 168px -100.66667px #ff004c, -244px 24.33333px #ff6600, 97px -325.66667px #ff0066, -211px -182.66667px #00ffa2, 236px -126.66667px #b700ff, 140px -196.66667px #9000ff, 125px -175.66667px #00bbff, 118px -381.66667px #ff002f, 144px -111.66667px #ffae00, 36px -78.66667px #f600ff, -63px -196.66667px #c800ff, -218px -227.66667px #d4ff00, -134px -377.66667px #ea00ff, -36px -412.66667px #ff00d4, 209px -106.66667px #00fff2, 91px -278.66667px #000dff, -22px -191.66667px #9dff00, 139px -392.66667px #a6ff00, 56px -2.66667px #0099ff, -156px -276.66667px #ea00ff, -163px -233.66667px #00fffb, -238px -346.66667px #00ff73, 62px -363.66667px #0088ff, 244px -170.66667px #0062ff, 224px -142.66667px #b300ff, 141px -208.66667px #9000ff, 211px -285.66667px #ff6600, 181px -128.66667px #1e00ff, 90px -123.66667px #c800ff, 189px 70.33333px #00ffc8, -18px -383.66667px #00ff33, 100px -6.66667px #ff008c;
+                -moz-animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+                -webkit-animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+                -o-animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+                -ms-animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+                animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards; }
+
+                .pyro > .after {
+                -moz-animation-delay: 1.25s, 1.25s, 1.25s;
+                -webkit-animation-delay: 1.25s, 1.25s, 1.25s;
+                -o-animation-delay: 1.25s, 1.25s, 1.25s;
+                -ms-animation-delay: 1.25s, 1.25s, 1.25s;
+                animation-delay: 1.25s, 1.25s, 1.25s;
+                -moz-animation-duration: 1.25s, 1.25s, 6.25s;
+                -webkit-animation-duration: 1.25s, 1.25s, 6.25s;
+                -o-animation-duration: 1.25s, 1.25s, 6.25s;
+                -ms-animation-duration: 1.25s, 1.25s, 6.25s;
+                animation-duration: 1.25s, 1.25s, 6.25s; }
+
+                @-webkit-keyframes bang {
+                from {
+                box-shadow: 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white; } }
+                @-moz-keyframes bang {
+                from {
+                box-shadow: 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white; } }
+                @-o-keyframes bang {
+                from {
+                box-shadow: 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white; } }
+                @-ms-keyframes bang {
+                from {
+                box-shadow: 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white; } }
+                @keyframes bang {
+                from {
+                box-shadow: 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white; } }
+                @-webkit-keyframes gravity {
+                to {
+                transform: translateY(200px);
+                -moz-transform: translateY(200px);
+                -webkit-transform: translateY(200px);
+                -o-transform: translateY(200px);
+                -ms-transform: translateY(200px);
+                opacity: 0; } }
+                @-moz-keyframes gravity {
+                to {
+                transform: translateY(200px);
+                -moz-transform: translateY(200px);
+                -webkit-transform: translateY(200px);
+                -o-transform: translateY(200px);
+                -ms-transform: translateY(200px);
+                opacity: 0; } }
+                @-o-keyframes gravity {
+                to {
+                transform: translateY(200px);
+                -moz-transform: translateY(200px);
+                -webkit-transform: translateY(200px);
+                -o-transform: translateY(200px);
+                -ms-transform: translateY(200px);
+                opacity: 0; } }
+                @-ms-keyframes gravity {
+                to {
+                transform: translateY(200px);
+                -moz-transform: translateY(200px);
+                -webkit-transform: translateY(200px);
+                -o-transform: translateY(200px);
+                -ms-transform: translateY(200px);
+                opacity: 0; } }
+                @keyframes gravity {
+                to {
+                transform: translateY(200px);
+                -moz-transform: translateY(200px);
+                -webkit-transform: translateY(200px);
+                -o-transform: translateY(200px);
+                -ms-transform: translateY(200px);
+                opacity: 0; } }
+                @-webkit-keyframes position {
+                0%, 19.9% {
+                margin-top: 10%;
+                margin-left: 40%; }
+
+                20%, 39.9% {
+                margin-top: 40%;
+                margin-left: 30%; }
+
+                40%, 59.9% {
+                margin-top: 20%;
+                margin-left: 70%; }
+
+                60%, 79.9% {
+                margin-top: 30%;
+                margin-left: 20%; }
+
+                80%, 99.9% {
+                margin-top: 30%;
+                margin-left: 80%; } }
+                @-moz-keyframes position {
+                0%, 19.9% {
+                margin-top: 10%;
+                margin-left: 40%; }
+
+                20%, 39.9% {
+                margin-top: 40%;
+                margin-left: 30%; }
+
+                40%, 59.9% {
+                margin-top: 20%;
+                margin-left: 70%; }
+
+                60%, 79.9% {
+                margin-top: 30%;
+                margin-left: 20%; }
+
+                80%, 99.9% {
+                margin-top: 30%;
+                margin-left: 80%; } }
+                @-o-keyframes position {
+                0%, 19.9% {
+                margin-top: 10%;
+                margin-left: 40%; }
+
+                20%, 39.9% {
+                margin-top: 40%;
+                margin-left: 30%; }
+
+                40%, 59.9% {
+                margin-top: 20%;
+                margin-left: 70%; }
+
+                60%, 79.9% {
+                margin-top: 30%;
+                margin-left: 20%; }
+
+                80%, 99.9% {
+                margin-top: 30%;
+                margin-left: 80%; } }
+                @-ms-keyframes position {
+                0%, 19.9% {
+                margin-top: 10%;
+                margin-left: 40%; }
+
+                20%, 39.9% {
+                margin-top: 40%;
+                margin-left: 30%; }
+
+                40%, 59.9% {
+                margin-top: 20%;
+                margin-left: 70%; }
+
+                60%, 79.9% {
+                margin-top: 30%;
+                margin-left: 20%; }
+
+                80%, 99.9% {
+                margin-top: 30%;
+                margin-left: 80%; } }
+                @keyframes position {
+                0%, 19.9% {
+                margin-top: 10%;
+                margin-left: 40%; }
+
+                20%, 39.9% {
+                margin-top: 40%;
+                margin-left: 30%; }
+
+                40%, 59.9% {
+                margin-top: 20%;
+                margin-left: 70%; }
+
+                60%, 79.9% {
+                margin-top: 30%;
+                margin-left: 20%; }
+
+                80%, 99.9% {
+                margin-top: 30%;
+                margin-left: 80%; } }
+
+        </style>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.4.2/css/all.css' integrity='sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns' crossorigin='anonymous'>
+</head>
+<body style="background: black">
+    <div id="firework" class="">
+    <div class="before"></div>
+    <div class="after"></div>
+    </div>
+
+    <div class="containerr">
+                <div  id="x" class="grid-container">
+                        <div  id="id100" class="grid-item"></div>
+                        <div  id="id99"  class="grid-item"></div>
+                        <div  id="id98" class="grid-item"></div>  
+                        <div  id="id97" class="grid-item"></div>
+                        <div  id="id96" class="grid-item"></div>
+                        <div  id="id95" class="grid-item"></div>  
+                        <div  id="id94" class="grid-item"></div>
+                        <div  id="id93" class="grid-item"></div>
+                        <div  id="id92" class="grid-item"></div>
+                        <div  id="id91" class="grid-item"></div>
+                        <div  id="id81" class="grid-item"></div>
+                        <div  id="id82" class="grid-item"></div>  
+                        <div  id="id83" class="grid-item"></div>
+                        <div  id="id84" class="grid-item"></div>
+                        <div  id="id85" class="grid-item"></div>  
+                        <div  id="id86" class="grid-item"></div>
+                        <div  id="id87" class="grid-item"></div>
+                        <div id="id88" class="grid-item"></div> 
+                        <div id="id89" class="grid-item"></div>
+                        <div id="id90" class="grid-item"></div>
+                        <div id="id80" class="grid-item"></div>  
+                        <div id="id79" class="grid-item"></div>
+                        <div id="id78" class="grid-item"></div>
+                        <div id="id77" class="grid-item"></div>  
+                        <div id="id76" class="grid-item"></div>
+                        <div id="id75" class="grid-item"></div>
+                        <div id="id74" class="grid-item"></div> 
+                        <div id="id73" class="grid-item"></div>
+                        <div id="id72"class="grid-item"></div>
+                        <div id="id71" class="grid-item"></div>  
+                        <div id="id61" class="grid-item"></div>
+                        <div id="id62" class="grid-item"></div>
+                        <div id="id63" class="grid-item"></div>  
+                        <div id="id64" class="grid-item"></div>
+                        <div id="id65" class="grid-item"></div>
+                        <div  id="id66" class="grid-item"></div> 
+                        <div id="id67" class="grid-item"></div>
+                        <div id="id68" class="grid-item"></div>
+                        <div id="id69" class="grid-item"></div>  
+                        <div id="id70" class="grid-item"></div>
+                        <div id="id60" class="grid-item"></div>
+                        <div id="id59" class="grid-item"></div>  
+                        <div id="id58" class="grid-item"></div>
+                        <div id="id57" class="grid-item"></div>
+                        <div id="id56" class="grid-item"></div> 
+                        <div id="id55" class="grid-item"></div>
+                        <div id="id54" class="grid-item"></div>
+                        <div id="id53" class="grid-item"></div>  
+                        <div id="id52" class="grid-item"></div>
+                        <div id="id51" class="grid-item"></div>
+                        <div id="id41" class="grid-item"></div>  
+                        <div id="id42" class="grid-item"></div>
+                        <div id="id43" class="grid-item"></div>
+                        <div id="id44" class="grid-item"></div> 
+                        <div id="id45" class="grid-item"></div>
+                        <div id="id46" class="grid-item"></div>
+                        <div id="id47" class="grid-item"></div>  
+                        <div id="id48" class="grid-item"></div>
+                        <div id="id49" class="grid-item"></div>
+                        <div id="id50" class="grid-item"></div>  
+                        <div id="id40" class="grid-item"></div>
+                        <div id="id39" class="grid-item"></div>
+                        <div id="id38" class="grid-item"></div> 
+                        <div id="id37" class="grid-item"></div>
+                        <div id="id36" class="grid-item"></div>
+                        <div id="id35" class="grid-item"></div>  
+                        <div id="id34" class="grid-item"></div>
+                        <div id="id33" class="grid-item"></div>
+                        <div id="id32" class="grid-item"></div>  
+                        <div id="id31" class="grid-item"></div>
+                        <div id="id21" class="grid-item"></div>
+                        <div id="id22" class="grid-item"></div>
+                        <div id="id23" class="grid-item"></div>
+                        <div id="id24" class="grid-item"></div>  
+                        <div id="id25" class="grid-item"></div>
+                        <div id="id26" class="grid-item"></div>
+                        <div id="id27" class="grid-item"></div>  
+                        <div id="id28" class="grid-item"></div>
+                        <div id="id29" class="grid-item"></div>
+                        <div id="id30" class="grid-item"></div>
+                        <div id="id20" class="grid-item"></div>  
+                        <div id="id19" class="grid-item"></div>
+                        <div id="id18" class="grid-item"></div>
+                        <div id="id17" class="grid-item"></div>
+                        <div id="id16" class="grid-item"></div>
+                        <div id="id15" class="grid-item"></div>  
+                        <div id="id14" class="grid-item"></div>
+                        <div id="id13" class="grid-item"></div>
+                        <div id="id12"class="grid-item"></div>  
+                        <div id="id11" class="grid-item"></div>
+                        <div id="id1" class="grid-item"></div>
+                        <div id="id2" class="grid-item"></div>
+                        <div id="id3" class="grid-item"></div>  
+                        <div id="id4" class="grid-item"></div>
+                        <div id="id5" class="grid-item"></div>
+                        <div id="id6" class="grid-item"></div>  
+                        <div id="id7" class="grid-item"></div>
+                        <div id="id8" class="grid-item"></div>
+                        <div id="id9" class="grid-item"></div>
+                        <div id="id10" class="grid-item"></div>
+                </div>
+                
+                <div  id="dice" class="btn-group-lg ">
+                        <button  id="y" onclick="roll()" style="width: 184px; border: 1px solid black;" class="btn btn-lg fa btn-danger ">P1   &#xf522;</button>
+                        <div id="z" style="background-color:rgb(248, 247, 163);padding: 3px; font-size: 45px;text-align: center;"></div>
+                        <button  id="y1" onclick="roll2()" style="width: 182px; border: 1px solid black;"  class="btn btn-lg fa btn-info">P2   &#xf522;</button>
+                 </div>
+    
+                <div id="id0" style="display: none " ></div>
+                
+    
+                <audio id="dice_sound">
+                    <source id="dice_src" src="dice.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="hiss">
+                    <source id="hiss_src" src="hiss.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="applause">
+                    <source id="applause_src" src="applause.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="firework_sound">
+                    <source id="firework_src" src="firework.mp3" type="audio/mpeg">
+                </audio>
+                
+            
+    
+            </div>
+        </div>
+    </body>
+    <script src="snake_ladder.js"></script>
+</html>
